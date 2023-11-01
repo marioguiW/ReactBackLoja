@@ -1,0 +1,17 @@
+.caixa_texto{
+    display: flex;
+    flex-direction: column;
+
+    width: 30%;
+}
+
+input{
+    padding: 18px;
+    font-size: 24px;
+    box-shadow: 4px 3px 8px ;
+    border: none;
+}
+
+label{
+    font-size: 24px;
+}

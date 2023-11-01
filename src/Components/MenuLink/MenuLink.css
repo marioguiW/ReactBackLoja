@@ -1,0 +1,11 @@
+.link{
+    display: flex;
+    color: rgb(152, 149, 149);
+    font-size: 24px;
+    text-decoration: none;
+}
+
+.linkdestacado{
+    border-bottom: solid rgb(152, 149, 149);
+    text-decoration: none;
+}
