@@ -1,10 +1,10 @@
 import './CampoTexto.css'
 
-export default function CampoTexto({children, titulo, tipo}){
+export default function CampoTexto({children, titulo, tipo, valor, aoAlterar}){
     return(
         <div className='caixa_texto'>
             <label htmlFor='text'>{titulo}</label>
-            <input type={tipo} placeholder={children}/>
+            <input value={valor} onChange={evento => aoAlterar(evento.target.value)} type={tipo} placeholder={children}/>
         </div>
     )
 }
