@@ -13,10 +13,9 @@ const SobreMim = () => {
     const [cidade, setCidade] = useState('');
 
     useEffect(()=>{
-        if(cep && cep.length == 7){
+        if(cep && cep.length > 7){
             fetch(`https://viacep.com.br/ws/${cep}/json/`, {
                 method: "GET",
-                mode: "no-cors",
                 headers: {
                 'content-type': 'application/json;charset=utf-8',
                 }
@@ -24,13 +23,61 @@ const SobreMim = () => {
                 .then(resposta => resposta.json())
                 .then(dados =>{
                     console.log(dados);
+                    setBairro(dados.bairro);
+                    setCidade(dados.localidade);
+                    setEndereco(dados.logradouro);
                 })
         }
-    },[])
+    },[cep])
+
+    const aoCadastrarCliente = (evento)=>{
+        evento.preventDefault();
+        fetch("https://localhost:7148/endereco/enderecos", {
+            method: 'POST',
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                Cep: cep,
+                Logradouro: endereco,
+                Numero: numero,
+                Bairro: bairro,
+                Cidade: cidade,
+            })
+        })
+        .then((response) => {
+            if (response.ok) {
+              return fetch("https://localhost:7148/endereco/enderecos", {
+                method: 'GET',
+                headers: {
+                  'content-type': 'application/json;charset=utf-8',
+                }
+              });
+            } else {
+              throw new Error("Falha no POST");
+            }
+          })
+          .then((resposta) => resposta.json())
+          .then((dados) => {
+            console.log(dados[dados.length-1]);
+            var idEndereco = dados[dados.length-1].id
+            console.log(idEndereco);
+            fetch("https://localhost:7148/cliente/clientes", {
+                method: 'POST',
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    Nome: nome,
+                    EnderecoId: idEndereco
+                })
+            })
+          })
+    }
 
     return(
         <div className='home'>
-            <form className='formulario'>
+            <form onSubmit={aoCadastrarCliente} className='formulario'>
                 <CampoTexto
                     tipo="text"
                     titulo={"Nome"}

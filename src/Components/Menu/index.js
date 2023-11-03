@@ -9,7 +9,7 @@ const Menu = () => {
                     Cadastrar Produto
                 </MenuLink> 
                 <MenuLink rota='/sobremim'>
-                    Comprar
+                    Cadastrar Cliente
                 </MenuLink>
             </nav>
         </header>
