@@ -7,10 +7,14 @@ const Menu = () => {
             <nav className='navbar'>
                 <MenuLink rota='/'>
                     Cadastrar Produto
+                </MenuLink>
+                <MenuLink rota={'/comprar'}>
+                    Comprar
                 </MenuLink> 
                 <MenuLink rota='/sobremim'>
                     Cadastrar Cliente
                 </MenuLink>
+                
             </nav>
         </header>
     )

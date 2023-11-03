@@ -73,58 +73,72 @@ const SobreMim = () => {
                 })
             })
           })
-    }
+
+          setNome('')
+          setCep('')
+          setEndereco('')
+          setNumero('')
+          setBairro('')
+          setCidade('')
+          alert("Cliente Cadastrado com sucesso!");
+
+    }   
 
     return(
         <div className='home'>
             <form onSubmit={aoCadastrarCliente} className='formulario'>
-                <CampoTexto
-                    tipo="text"
-                    titulo={"Nome"}
-                    valor={nome}
-                    aoAlterar={valor => setNome(valor)}
-                >Digite seu Nome 
-                </CampoTexto>
+                <div className='inputs'>
+                    <div className='inputs_3'>
+                        <CampoTexto
+                            tipo="text"
+                            titulo={"Nome"}
+                            valor={nome}
+                            aoAlterar={valor => setNome(valor)}
+                        >Digite seu Nome 
+                        </CampoTexto>
 
-                <CampoTexto
-                    tipo="number"
-                    titulo={"Cep"}
-                    valor={cep}
-                    aoAlterar={valor => setCep(valor)}
-                >Digite seu CEP
-                </CampoTexto>
+                        <CampoTexto
+                            tipo="number"
+                            titulo={"Cep"}
+                            valor={cep}
+                            aoAlterar={valor => setCep(valor)}
+                        >Digite seu CEP
+                        </CampoTexto>
 
-                <CampoTexto
-                    tipo="text"
-                    titulo={"Endereco"}
-                    valor={endereco}
-                    aoAlterar={valor => setEndereco(valor)}
-                >Digite o Endereco
-                </CampoTexto>
+                        <CampoTexto
+                            tipo="text"
+                            titulo={"Endereco"}
+                            valor={endereco}
+                            aoAlterar={valor => setEndereco(valor)}
+                        >Digite o Endereco
+                        </CampoTexto>
+                    </div>
+                    <div className='inputs_3'>
+                        <CampoTexto
+                            tipo="text"
+                            titulo={"Numero"}
+                            valor={numero}
+                            aoAlterar={valor => setNumero(valor)}
+                        >Digite o Numero
+                        </CampoTexto>
 
-                <CampoTexto
-                    tipo="text"
-                    titulo={"Numero"}
-                    valor={numero}
-                    aoAlterar={valor => setNumero(valor)}
-                >Digite o Numero
-                </CampoTexto>
+                        <CampoTexto
+                            tipo="text"
+                            titulo={"Bairro"}
+                            valor={bairro}
+                            aoAlterar={valor => setBairro(valor)}
+                        >Digite o Bairro
+                        </CampoTexto>
 
-                <CampoTexto
-                    tipo="text"
-                    titulo={"Bairro"}
-                    valor={bairro}
-                    aoAlterar={valor => setBairro(valor)}
-                >Digite o Bairro
-                </CampoTexto>
-
-                <CampoTexto
-                    tipo="text"
-                    titulo={"Cidade"}
-                    valor={cidade}
-                    aoAlterar={valor => setCidade(valor)}
-                >Digite o Cidade
-                </CampoTexto>
+                        <CampoTexto
+                            tipo="text"
+                            titulo={"Cidade"}
+                            valor={cidade}
+                            aoAlterar={valor => setCidade(valor)}
+                        >Digite o Cidade
+                        </CampoTexto>
+                    </div>
+                </div>
 
                 <BotaoEnviar conteudo="Cadastrar"/>
             </form>

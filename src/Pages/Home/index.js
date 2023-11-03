@@ -14,7 +14,7 @@ const Home = ()=> {
         evento.preventDefault();
         console.log(titulo,categoria,preco,unidadeMedida);
         postProduto()
-    }
+    }   
 
     
 
@@ -31,6 +31,12 @@ const Home = ()=> {
                 UnidadeMedida: unidadeMedida
             })
         })
+
+        setTitulo('');
+        setCategoria('');
+        setPreco(0)
+        setUnidadeMedida('')
+        alert("Produto criado com sucesso!")
     }
 
     return(
