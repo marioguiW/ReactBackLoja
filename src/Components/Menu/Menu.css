@@ -1,12 +1,13 @@
 .cabecalho{
     display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 13vh;
+    background-color: rgb(15, 1, 50);
 }
 
 .navbar{
     display: flex;
-    width: 600px;
-    margin-top: 30px;
+    padding: 0px 300px 0px 300px;
     justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }

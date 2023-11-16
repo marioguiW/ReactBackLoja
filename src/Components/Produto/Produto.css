@@ -1,0 +1,27 @@
+.produto{
+    text-align: center;
+    color: rgb(88, 87, 87);
+    transition: all 2ms;
+}
+
+.botao-edit{
+    font-size: 25px;
+    color: rgb(82, 82, 255);
+    
+}
+
+.botao-delete{
+    font-size: 28px;
+    color: red;
+    
+}
+
+.botao-edit:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.botao-delete:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}

@@ -5,13 +5,16 @@ const Menu = () => {
     return(
         <header className='cabecalho'>
             <nav className='navbar'>
-                <MenuLink rota='/'>
+                <MenuLink rota='/produtos'>
+                    Produtos
+                </MenuLink>
+                <MenuLink rota='/cadastrarproduto'>
                     Cadastrar Produto
                 </MenuLink>
                 <MenuLink rota={'/comprar'}>
                     Comprar
                 </MenuLink> 
-                <MenuLink rota='/sobremim'>
+                <MenuLink rota='/cadastrarcliente'>
                     Cadastrar Cliente
                 </MenuLink>
                 

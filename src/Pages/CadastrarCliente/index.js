@@ -3,7 +3,7 @@ import './SobreMim.css'
 import BotaoEnviar from 'Components/BotaoEnviar';
 import { useEffect, useState } from 'react';
 
-const SobreMim = () => {
+const CadastrarCliente = () => {
 
     const [nome, setNome] = useState('');
     const [cep, setCep] = useState('');
@@ -11,6 +11,9 @@ const SobreMim = () => {
     const [numero, setNumero] = useState('');
     const [bairro, setBairro] = useState('');
     const [cidade, setCidade] = useState('');
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [confirmSenha, setConfirmSenha] = useState('');
 
     useEffect(()=>{
         if(cep && cep.length > 7){
@@ -32,6 +35,10 @@ const SobreMim = () => {
 
     const aoCadastrarCliente = (evento)=>{
         evento.preventDefault();
+        if(senha == confirmSenha){
+
+        
+
         fetch("https://localhost:7148/endereco/enderecos", {
             method: 'POST',
             headers: {
@@ -69,6 +76,8 @@ const SobreMim = () => {
                 },
                 body: JSON.stringify({
                     Nome: nome,
+                    Email: email,
+                    Senha: senha,
                     EnderecoId: idEndereco
                 })
             })
@@ -81,14 +90,17 @@ const SobreMim = () => {
           setBairro('')
           setCidade('')
           alert("Cliente Cadastrado com sucesso!");
+        }else{
+            alert("Senhas não coincidem");
+        }
+
 
     }   
 
     return(
-        <div className='home'>
-            <form onSubmit={aoCadastrarCliente} className='formulario'>
+        <div className='cadastro-cliente'>
+            <form onSubmit={aoCadastrarCliente} className='formulario-cliente'>
                 <div className='inputs'>
-                    <div className='inputs_3'>
                         <CampoTexto
                             tipo="text"
                             titulo={"Nome"}
@@ -98,52 +110,80 @@ const SobreMim = () => {
                         </CampoTexto>
 
                         <CampoTexto
+                            tipo="email"
+                            titulo={"Email"}
+                            valor={email}
+                            aoAlterar={valor => setEmail(valor)}
+                        >Digite seu Email
+                        </CampoTexto>
+
+                        <div className='campos2'>
+                            <CampoTexto
+                                tipo="password"
+                                titulo={"Senha"}
+                                valor={senha}
+                                aoAlterar={valor => setSenha(valor)}
+                            >Digite sua senha
+                            </CampoTexto>
+
+                            <CampoTexto
+                                tipo="password"
+                                titulo={"Confirmar Senha"}
+                                valor={confirmSenha}
+                                aoAlterar={valor => setConfirmSenha(valor)}
+                            >Confirme a senha
+                            </CampoTexto>
+                        </div>
+
+
+                        <CampoTexto
                             tipo="number"
                             titulo={"Cep"}
                             valor={cep}
                             aoAlterar={valor => setCep(valor)}
                         >Digite seu CEP
                         </CampoTexto>
+                        <div className='campos2'>
+                                <CampoTexto
+                                    tipo="text"
+                                    titulo={"Endereco"}
+                                    valor={endereco}
+                                    aoAlterar={valor => setEndereco(valor)}
+                                    >Digite o Endereco
+                                </CampoTexto>
 
-                        <CampoTexto
-                            tipo="text"
-                            titulo={"Endereco"}
-                            valor={endereco}
-                            aoAlterar={valor => setEndereco(valor)}
-                        >Digite o Endereco
-                        </CampoTexto>
+                                <CampoTexto
+                                    tipo="text"
+                                    titulo={"Numero"}
+                                    valor={numero}
+                                    aoAlterar={valor => setNumero(valor)}
+                                    >Digite o Numero
+                                </CampoTexto>
+                        </div>
+                        <div className='campos2'>
+                            <CampoTexto
+                                tipo="text"
+                                titulo={"Bairro"}
+                                valor={bairro}
+                                aoAlterar={valor => setBairro(valor)}
+                            >Digite o Bairro
+                            </CampoTexto>
+
+                            <CampoTexto
+                                tipo="text"
+                                titulo={"Cidade"}
+                                valor={cidade}
+                                aoAlterar={valor => setCidade(valor)}
+                            >Digite o Cidade
+                            </CampoTexto>
+                        </div>
+                        
+
                     </div>
-                    <div className='inputs_3'>
-                        <CampoTexto
-                            tipo="text"
-                            titulo={"Numero"}
-                            valor={numero}
-                            aoAlterar={valor => setNumero(valor)}
-                        >Digite o Numero
-                        </CampoTexto>
-
-                        <CampoTexto
-                            tipo="text"
-                            titulo={"Bairro"}
-                            valor={bairro}
-                            aoAlterar={valor => setBairro(valor)}
-                        >Digite o Bairro
-                        </CampoTexto>
-
-                        <CampoTexto
-                            tipo="text"
-                            titulo={"Cidade"}
-                            valor={cidade}
-                            aoAlterar={valor => setCidade(valor)}
-                        >Digite o Cidade
-                        </CampoTexto>
-                    </div>
-                </div>
-
                 <BotaoEnviar conteudo="Cadastrar"/>
             </form>
         </div>
     )
 }
 
-export default SobreMim;
+export default CadastrarCliente;

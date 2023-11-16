@@ -1,0 +1,18 @@
+.produtos{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+}
+
+
+.tabela-produtos td{
+    font-size: 24px;
+    padding: 0px 2rem 0px 2rem;
+}
+
+.titulo{
+    text-align: center;
+    
+}

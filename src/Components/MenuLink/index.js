@@ -9,10 +9,11 @@ const MenuLink = ({children, rota})=>{
 
         <Link
             className={`
-            ${'link'}
-            ${localizacao.pathname == rota ? 'linkdestacado' : ''}
-        `}  to={rota}
->
+                ${'link'}
+                ${localizacao.pathname == rota ? 'linkdestacado' : ''}
+            `}
+            to={rota}
+        >
             {children}
         </Link> 
     )

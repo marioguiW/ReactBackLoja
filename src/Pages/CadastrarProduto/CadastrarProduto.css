@@ -1,16 +1,16 @@
-.cadastro-cliente{
+.cadastro_produto{
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
 }
 
-.formulario-cliente{
-    margin-top: 2%;
+.formulario-produto{
+    margin-top: 5%;
     width: 50%;
 }
 
-.campos2{
+.campo-duplo{
     display: flex;
     gap: 50px;
 }
