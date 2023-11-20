@@ -3,7 +3,6 @@ import styles from './MenuLink.css'
 
 const MenuLink = ({children, rota})=>{
     const localizacao = useLocation();
-    console.log(localizacao)
 
     return(
 

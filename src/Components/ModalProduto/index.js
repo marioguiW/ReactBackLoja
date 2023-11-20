@@ -1,11 +1,44 @@
 import CampoTexto from 'Components/CampoTexto'
 import './ModalProduto.css'
 import BotaoEnviar from 'Components/BotaoEnviar'
+import { useState } from 'react';
 
-export default function ModalProduto({isOpen,valorId, setId, valorTitulo, setTitulo, valorCategoria,setCategoria, valorPreco,setPreco,valorQuantidade,setQuantidade, valorUnidadeMedida, setUnidadeMedida}){
-    
-    function aoAtualizarProduto(){
-        console.log("teste")
+export default function ModalProduto({setProdutos,isOpen,setModal
+    ,valorId, valorTitulo, setTitulo, valorCategoria,setCategoria
+    , valorPreco,setPreco,valorQuantidade,setQuantidade, valorUnidadeMedida, setUnidadeMedida}){
+
+    const [newTitulo, setNewTitulo] = useState(valorTitulo)
+    const [newCategoria, setNewCategoria] = useState(valorCategoria)
+    const [newPreco, setNewPreco] = useState(valorPreco)
+    const [newQuantidade, setNewQuantidade] = useState(valorQuantidade)
+
+    async function aoAtualizarProduto(evento){
+        evento.preventDefault();
+        const endpoint = `https://localhost:7148/produto/produtos/${valorId}`
+
+        const novosDados = {
+            titulo: newTitulo,
+            categoria: newCategoria,
+            unidadeMedida: valorUnidadeMedida,
+            preco: newPreco,
+            quantidade: newQuantidade
+        }
+
+        setTitulo(newTitulo)
+        setCategoria(newCategoria)
+        setUnidadeMedida(valorUnidadeMedida)
+        setPreco(newPreco)
+        setQuantidade(newQuantidade)
+
+        const fetchApi = await fetch(endpoint, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(novosDados)
+        })
+
+        setModal(!isOpen)
     }
 
 
@@ -13,48 +46,39 @@ export default function ModalProduto({isOpen,valorId, setId, valorTitulo, setTit
         return (
             <div className='modal'>
                 <h1>Produto: {valorId}</h1>
-                <form onSubmit={aoAtualizarProduto} className='formulario-modal'>
+                <form onSubmit={evento => aoAtualizarProduto(evento)} className='formulario-modal'>
                     <CampoTexto
                         tipo="text"
                         titulo={"Titulo"}
-                        valor={valorTitulo}
-                        aoAlterar={valor => setTitulo(valor)}
+                        valor={newTitulo}
+                        aoAlterar={valor => setNewTitulo(valor)}
                     >Digite o Titulo do produto
                     </CampoTexto>
     
                     <CampoTexto
                         tipo="text"
                         titulo={"Categoria"}
-                        valor={valorCategoria}
-                        aoAlterar={valor => setCategoria(valor)}
+                        valor={newCategoria}
+                        aoAlterar={valor => setNewCategoria(valor)}
                     >Digite a Categoria do produto
                     </CampoTexto>
     
                     <CampoTexto
                         tipo="number"
                         titulo={"Preço"}
-                        valor={valorPreco}
-                        aoAlterar={valor => setPreco(valor)}
+                        valor={newPreco}
+                        aoAlterar={valor => setNewPreco(valor)}
                     >Digite o Preço do produto
                     </CampoTexto>
-    
-                    <div className='campo-duplo'>
-                        <CampoTexto
-                            tipo="text"
-                            titulo={"Unidade de Medida"}
-                            valor={valorUnidadeMedida}
-                            aoAlterar={valor => setUnidadeMedida(valor)}
-                        >Digite a unidade de medida do produto
-                        </CampoTexto>
-    
-                        <CampoTexto
-                            tipo="number"
-                            titulo={"Quantidade no Estoque"}
-                            valor={valorQuantidade}
-                            aoAlterar={valor => setQuantidade(valor)}
-                        >Digite a quantidade no estoque
-                        </CampoTexto>
-                    </div>
+
+                    <CampoTexto
+                        tipo="number"
+                        titulo={"Quantidade no Estoque"}
+                        valor={newQuantidade}
+                        aoAlterar={valor => setNewQuantidade(valor)}
+                    >Digite a quantidade no estoque
+                    </CampoTexto>
+
     
                     <BotaoEnviar conteudo="Atualizar"/>
                 </form>

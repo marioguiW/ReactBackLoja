@@ -17,6 +17,9 @@ const Menu = () => {
                 <MenuLink rota='/cadastrarcliente'>
                     Cadastrar Cliente
                 </MenuLink>
+                <MenuLink rota='/clientes'>
+                    Clientes
+                </MenuLink>
                 
             </nav>
         </header>

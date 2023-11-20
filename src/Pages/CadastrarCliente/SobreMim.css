@@ -1,16 +1,17 @@
-.cadastro-cliente{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
 
 .formulario-cliente{
-    margin-top: 2%;
-    width: 50%;
+    margin-top: 1%;
+    padding-bottom: 5%;
 }
 
 .campos2{
     display: flex;
-    gap: 50px;
+    justify-content: space-around;
+}
+
+.cadastro-cliente{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }

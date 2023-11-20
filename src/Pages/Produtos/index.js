@@ -1,7 +1,6 @@
 import Produto from "Components/Produto";
 import "./Produtos.css";
 import { useEffect, useState } from "react";
-import ModalProduto from "Components/ModalProduto";
 
 export default function Produtos(){
 
@@ -19,36 +18,82 @@ export default function Produtos(){
       console.log(produtos)
     }
 
-    useEffect(() => {
-        fetch(`https://localhost:7148/produto/produtos`, {
+    const fetchProdutos = async () => {
+      try {
+        const resposta = await fetch(`https://localhost:7148/produto/produtos`, {
           method: "GET",
           headers: {
             'content-type': 'application/json;charset=utf-8',
           }
-        })
-        .then(resposta => resposta.json())
-        .then(dados => {
-          console.log(dados)
-          const novoProduto = dados.map( produto => (
-            {
-              Id: produto.id,
-              Titulo: produto.titulo,
-              Categoria: produto.categoria,
-              Preco: produto.preco,
-              Quantidade: produto.quantidade,
-              UnidadeMedida: produto.unidadeMedida
-            }
-          ))
-
-          setProdutos([...produtos, ...novoProduto])
-          
         });
-      }, []);
+    
+        if (!resposta.ok) {
+          throw new Error(`Erro na solicitação: ${resposta.status}`);
+        }
+    
+        const dados = await resposta.json();
+        console.log(dados)
+    
+        const novoProduto = dados.map(produto => ({
+          Id: produto.id,
+          Titulo: produto.titulo,
+          Categoria: produto.categoria,
+          Preco: produto.preco,
+          Quantidade: produto.quantidade,
+          UnidadeMedida: produto.unidadeMedida
+        }));
+    
+        setProdutos([...novoProduto]);
+      } catch (erro) {
+        console.error("Erro ao obter produtos:", erro);
+        // Trate o erro aqui, exibindo uma mensagem para o usuário ou realizando outras ações apropriadas.
+      }
+    };
 
+    async function aoAtualizarProduto(valorId, valorTitulo, valorCategoria
+      ,valorPreco,valorQuantidade){
+
+        console.log(valorId, valorTitulo, valorCategoria,valorPreco,valorQuantidade)
+
+        var preco = parseInt(valorPreco)
+        console.log(preco)
+
+      const endpoint = `https://localhost:7148/produto/produtos/${valorId}`
+
+      console.log("passou")
+
+      const novosDados = {
+          titulo: valorTitulo,
+          categoria: valorCategoria,
+          preco: parseFloat(valorPreco),
+          quantidade: parseInt(valorQuantidade)
+      }
+
+      console.log(novosDados)
+
+      const fetchApi = await fetch(endpoint, {
+          method: "PUT",
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(novosDados)
+      })
+
+      if(fetchApi.ok){
+        console.log("cert")
+      }else{
+        console.log("errado")
+      }
+    }
+
+    useEffect(() => {
+        fetchProdutos();
+      }, []);
 
     return (
         <div className="produtos">
             <table className="tabela-produtos">
+              <thead>
                 <tr className="titulo">
                     <td>Id</td>
                     <td colSpan={2}>Titulo</td>
@@ -56,24 +101,24 @@ export default function Produtos(){
                     <td>Preço</td>
                     <td>Quantidade Disp.</td>
                 </tr>
-
+              </thead>
+              <tbody>
                 {produtos.map(produto => (
-                  
                   <Produto
-                      key={produto.Id} // Adicionei a propriedade key, que é necessária quando você faz um loop em elementos React
+                      key={produto.Id}
                       Id={produto.Id}
                       Titulo={produto.Titulo}
                       Categoria={produto.Categoria}
                       Preco={produto.Preco}
                       Quantidade={produto.Quantidade}
-                      UnidadeMedida={produto.unidadeMedida}
+                      UnidadeMedida={produto.UnidadeMedida}
                       Deletar={aoDeletar}
+                      produtos={produtos}
+                      setProdutos={setProdutos}
+                      aoAtualizarProduto={aoAtualizarProduto}
                     />
                     ))}
-                  
-                    <ModalProduto
-                      produtos={produtos}
-                    />
+              </tbody>     
             </table>
         </div>
     )

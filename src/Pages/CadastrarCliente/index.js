@@ -15,6 +15,8 @@ const CadastrarCliente = () => {
     const [senha, setSenha] = useState('');
     const [confirmSenha, setConfirmSenha] = useState('');
 
+    const [emails, setEmails] = useState([])
+
     useEffect(()=>{
         if(cep && cep.length > 7){
             fetch(`https://viacep.com.br/ws/${cep}/json/`, {
@@ -33,11 +35,34 @@ const CadastrarCliente = () => {
         }
     },[cep])
 
+    useEffect(() => {
+        fetch(`https://localhost:7148/cliente/clientes`, {
+          method: "GET",
+          headers: {
+            'content-type': 'application/json;charset=utf-8',
+          }
+        })
+        .then(resposta => resposta.json())
+        .then(dados => {
+          const novosEmails = [];
+          dados.forEach(dado => {
+            if(dado.email){
+                novosEmails.push(dado.email);
+                console.log("passo")
+            }
+            console.log(dado);
+          });
+          setEmails([...emails, ...novosEmails]);
+        });
+    }, []);
+
+
     const aoCadastrarCliente = (evento)=>{
         evento.preventDefault();
         if(senha == confirmSenha){
 
-        
+        if(!emails.find(a => a == email)){
+            
 
         fetch("https://localhost:7148/endereco/enderecos", {
             method: 'POST',
@@ -91,6 +116,9 @@ const CadastrarCliente = () => {
           setCidade('')
           alert("Cliente Cadastrado com sucesso!");
         }else{
+            alert("Email já registrado")
+        }
+        }else{
             alert("Senhas não coincidem");
         }
 
@@ -100,7 +128,6 @@ const CadastrarCliente = () => {
     return(
         <div className='cadastro-cliente'>
             <form onSubmit={aoCadastrarCliente} className='formulario-cliente'>
-                <div className='inputs'>
                         <CampoTexto
                             tipo="text"
                             titulo={"Nome"}
@@ -177,9 +204,6 @@ const CadastrarCliente = () => {
                             >Digite o Cidade
                             </CampoTexto>
                         </div>
-                        
-
-                    </div>
                 <BotaoEnviar conteudo="Cadastrar"/>
             </form>
         </div>
