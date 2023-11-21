@@ -1,0 +1,24 @@
+.clientes{
+    display: flex;
+    margin: 2% 5% 0% 5%;
+}
+
+.clientes-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .clientes-table th, .clientes-table td {
+    border: 1px solid #ddd;
+    padding: 1%;
+    text-align: left;
+  }
+  
+  .clientes-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .clientes-table tbody tr:hover {
+    background-color: #f5f5f5;
+  }

@@ -1,16 +1,45 @@
-
-.caixa_texto{
+.caixa_texto {
     display: flex;
     flex-direction: column;
     margin-bottom: 15px;
     width: 100%;
-}
-
-.caixa_texto input{
-    font-size: 1.3rem;
-    padding: 1%;   
-}
-
-.caixa_texto label{
-    font-size: 1.3rem;
-}
+  }
+  
+  .caixa_texto label {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: #333; /* Cor do texto */
+  }
+  
+  .caixa_texto input {
+    font-size: 1.2rem;
+    padding: 10px;
+    border: 1px solid #ccc; /* Cor da borda */
+    border-radius: 5px;
+    outline: none; /* Remove a borda de foco padrão */
+    transition: border-color 0.3s ease; /* Transição suave na mudança de cor da borda */
+  
+    /* Adiciona sombra ao foco do input */
+    &:focus {
+      border-color: #5b9bd5; /* Cor da borda ao focar */
+      box-shadow: 0 0 5px rgba(91, 155, 213, 0.5); /* Sombra ao focar */
+    }
+  }
+  
+  /* Estilo para indicar que o campo é obrigatório */
+  .caixa_texto label.required::after {
+    content: ' *';
+    color: red; /* Cor do asterisco indicativo de campo obrigatório */
+  }
+  
+  /* Adiciona estilo ao placeholder */
+  .caixa_texto input::placeholder {
+    color: #999; /* Cor do placeholder */
+  }
+  
+  /* Adiciona estilo ao input desabilitado */
+  .caixa_texto input:disabled {
+    background-color: #f0f0f0; /* Cor de fundo quando desabilitado */
+    cursor: not-allowed; /* Cursor indicando que está desabilitado */
+  }
+  

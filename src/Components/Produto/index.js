@@ -29,7 +29,6 @@ export default function Produto({aoAtualizarProduto,Id, Titulo, Categoria, Preco
             <td>{categoria}</td>
             <td>{`R$ ${preco}`}</td>
             <td>{quantidade}</td>
-            <td>{unidadeMedida}</td>
             <td>
                     <p onClick={() => setModalIsOpen(!modalIsOpen)} className='botao-edit'><BiEdit/></p>
             </td>

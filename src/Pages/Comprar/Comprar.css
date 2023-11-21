@@ -1,11 +1,7 @@
-.comprar{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 100px;
-}
 
-.formulario{
+
+.lista-produtos{
     display: flex;
-    width: 400px;
+    align-items: center;
+    justify-content: center;
 }

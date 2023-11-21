@@ -5,7 +5,6 @@ import './PaginaPadrao.css'
 export default function PaginaPadrao(){
     return(
         <main>
-            {/* <Banner/> */}
             
             <Outlet/>
         </main>

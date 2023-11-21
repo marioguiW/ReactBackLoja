@@ -1,9 +1,30 @@
-.button-geral{
-    padding: 18px;
-    font-size: 20px;
-    background-color: rgb(110, 110, 218);
-    border-radius: 10px;
-    border: none;
-    color: white;
+.button-geral {
+    padding: 15px 25px;
+    font-size: 18px;
+    background-color: #4CAF50; /* Cor de fundo do botão */
+    border-radius: 5px;
+    border: 2px solid #4CAF50; /* Cor da borda do botão */
+    color: #fff; /* Cor do texto no botão */
     cursor: pointer;
-}
+    transition: background-color 0.3s ease; /* Transição suave na mudança de cor de fundo */
+  
+    /* Efeito hover */
+    &:hover {
+      background-color: #45a049; /* Cor de fundo ao passar o mouse sobre o botão */
+    }
+  
+    /* Efeito de foco */
+    &:focus {
+      outline: none; /* Remove a borda de foco padrão */
+      box-shadow: 0 0 5px rgba(76, 175, 80, 0.7); /* Adiciona uma sombra ao focar */
+    }
+  
+    /* Efeito de desabilitado */
+    &:disabled {
+      background-color: #ccc; /* Cor de fundo quando o botão está desabilitado */
+      border-color: #ccc; /* Cor da borda quando o botão está desabilitado */
+      color: #666; /* Cor do texto quando o botão está desabilitado */
+      cursor: not-allowed; /* Cursor indicando que está desabilitado */
+    }
+  }
+  

@@ -2,6 +2,7 @@ import CampoTexto from 'Components/CampoTexto'
 import './ModalProduto.css'
 import BotaoEnviar from 'Components/BotaoEnviar'
 import { useState } from 'react';
+import { IoCloseCircle } from "react-icons/io5";
 
 export default function ModalProduto({setProdutos,isOpen,setModal
     ,valorId, valorTitulo, setTitulo, valorCategoria,setCategoria
@@ -45,6 +46,7 @@ export default function ModalProduto({setProdutos,isOpen,setModal
     if(isOpen){
         return (
             <div className='modal'>
+                <p onClick={() => setModal(!isOpen)} className='exit-modalproduto'><IoCloseCircle/></p>
                 <h1>Produto: {valorId}</h1>
                 <form onSubmit={evento => aoAtualizarProduto(evento)} className='formulario-modal'>
                     <CampoTexto

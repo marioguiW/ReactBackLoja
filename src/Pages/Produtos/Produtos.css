@@ -1,18 +1,33 @@
-.produtos{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 5%;
-}
+/* Estilização para o componente Produtos */
 
-
-.tabela-produtos td{
-    font-size: 24px;
-    padding: 0px 2rem 0px 2rem;
-}
-
-.titulo{
-    text-align: center;
-    
-}
+.produtos {
+    margin: 5% 10%;
+  }
+  
+  .tabela-produtos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+  }
+  
+  .titulo td {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  .tabela-produtos td {
+    border-bottom: 1px solid #ddd;
+    padding: 12px;
+  }
+  
+  .tabela-produtos td[colSpan="2"] {
+    max-width: 200px; /* Limita a largura do título */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .tabela-produtos tr:hover {
+    background-color: #f5f5f5;
+  }
+  

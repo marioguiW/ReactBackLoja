@@ -54,10 +54,7 @@ export default function Login({setSucess}){
                 const what = sessionStorage.getItem("login")
                 console.log(what)
 
-                setTimeout(() => {
-                    navigate("/pagina-de-sucesso")  
-                  }, 2000);
-                
+                navigate("/compras")
             }
         }
 

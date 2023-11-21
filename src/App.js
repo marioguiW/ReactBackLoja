@@ -16,7 +16,7 @@ function App() {
 
   function verificaLogin(){ 
     const funfo = sessionStorage.getItem("login")
-    console.log(funfo)
+    console.log("aaaaaa" + funfo)
       if(funfo){
         console.log(true)
         return true
@@ -35,20 +35,19 @@ function App() {
       <Routes>
         <Route path='/' element={<PaginaPadrao/>}>
           <Route path='/cadastrarproduto' element={<CadastrarProduto/>}/>
-          <Route path='/comprar' element={<Comprar/>}/>
           <Route path='/produtos' element={<Produtos/>}/>
           <Route path='/cadastrarcliente' element={<CadastrarCliente />}/>
+          <Route path='/compras' element={<Comprar/>}/>
           <Route
             path='/pagina-de-sucesso'
-            element={verificaLogin() ? <SucessPage /> : <Navigate to='/login' />}
+            element={<SucessPage/>}
           />
           <Route 
             path='/clientes'
-            element={verificaLogin() ? <Clientes/> : <Navigate to={'/login'}/>}
+            element={<Clientes/>}
             />
           <Route path="*" element={<Login/>} />
           <Route path="/" element={<Login/>} />
-    
         </Route>
       </Routes>
     </BrowserRouter>  

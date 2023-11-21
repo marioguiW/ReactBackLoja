@@ -100,6 +100,8 @@ export default function Produtos(){
                     <td>Categoria</td>
                     <td>Preço</td>
                     <td>Quantidade Disp.</td>
+                    <td></td>
+                    <td></td>
                 </tr>
               </thead>
               <tbody>

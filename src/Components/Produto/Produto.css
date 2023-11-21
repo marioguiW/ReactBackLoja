@@ -1,27 +1,29 @@
-.produto{
-    text-align: center;
-    color: rgb(88, 87, 87);
-    transition: all 2ms;
-}
+/* Estilização para o componente Produto */
 
-.botao-edit{
-    font-size: 25px;
-    color: rgb(82, 82, 255);
-    
-}
-
-.botao-delete{
-    font-size: 28px;
-    color: red;
-    
-}
-
-.botao-edit:hover{
+.produto {
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s ease; /* Adiciona transição suave na mudança de cor de fundo */
+  }
+  
+  .produto:hover {
+    background-color: #f5f5f5; /* Cor de fundo ao passar o mouse sobre a linha */
+  }
+  
+  .produto td {
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .produto .botao-edit,
+  .produto .botao-delete {
     cursor: pointer;
-    transform: scale(1.1);
-}
-
-.botao-delete:hover{
-    cursor: pointer;
-    transform: scale(1.1);
-}
+    font-size: 1.2rem;
+    margin-right: 8px;
+    color: #555;
+  }
+  
+  .produto .botao-edit:hover,
+  .produto .botao-delete:hover {
+    color: #4CAF50; /* Cor ao passar o mouse sobre os botões */
+  }
+  
