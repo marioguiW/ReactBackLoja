@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import BotaoEnviar from "Components/BotaoEnviar"
 import { Link, useNavigate } from "react-router-dom"
 
-export default function Login({setSucess}){
+export default function Login({setUser}){
 
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
@@ -48,13 +48,15 @@ export default function Login({setSucess}){
 
             if(usuarioValidado == undefined){
                 setErro("Email ou Senha inválido")
+                console.log(usuarioValidado)
+                
             }else{
-                sessionStorage.setItem("login", JSON.stringify(email))
+                console.log(usuarioValidado)
+                sessionStorage.setItem("login", JSON.stringify(usuarioValidado))
+                setUser(usuarioValidado)
+                
 
-                const what = sessionStorage.getItem("login")
-                console.log(what)
-
-                navigate("/compras")
+                navigate("/comprar")
             }
         }
 

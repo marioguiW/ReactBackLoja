@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import {BrowserRouter, Routes, Route, useSearchParams, Navigate} from 'react-router-dom'
+import {BrowserRouter, Routes, Route, useSearchParams, Navigate, Outlet} from 'react-router-dom'
 import CadastrarProduto from './Pages/CadastrarProduto'; 
 import CadastrarCliente from './Pages/CadastrarCliente';
 import Menu from './Components/Menu';
@@ -13,45 +13,90 @@ import SucessPage from 'Pages/SucessPage';
 import Clientes from 'Pages/Clientes';
 
 function App() {
+    const [user, setUser] = useState(null);
 
-  function verificaLogin(){ 
-    const funfo = sessionStorage.getItem("login")
-    console.log("aaaaaa" + funfo)
-      if(funfo){
-        console.log(true)
-        return true
-      }else{
-        console.log(false)
-        return false
-      }
-  }
+    const handleLogin = () => {
+        setUser(sessionStorage.getItem("login"));
+    }
+    console.log(user)
+    const handleLogout = () => setUser(null);
 
-
-
-  return (
     
-    <BrowserRouter>
-      <Menu/>
-      <Routes>
-        <Route path='/' element={<PaginaPadrao/>}>
-          <Route path='/cadastrarproduto' element={<CadastrarProduto/>}/>
-          <Route path='/produtos' element={<Produtos/>}/>
-          <Route path='/cadastrarcliente' element={<CadastrarCliente />}/>
-          <Route path='/compras' element={<Comprar/>}/>
-          <Route
-            path='/pagina-de-sucesso'
-            element={<SucessPage/>}
-          />
-          <Route 
-            path='/clientes'
-            element={<Clientes/>}
-            />
-          <Route path="*" element={<Login/>} />
-          <Route path="/" element={<Login/>} />
-        </Route>
-      </Routes>
-    </BrowserRouter>  
-  );
+    const ProtectedRoute = ({
+        user,
+        redirectPath = '/cadastrarproduto',
+        children,
+      }) => {
+        if (!user.isAdmin) {
+            console.log("passou, é um admin")
+            console.log(user)
+          return <Navigate to={redirectPath} replace />;
+        }
+        console.log("nao é admin")
+        console.log(user.isADmin)
+        return children ? children : <Outlet />;
+      };
+    
+    return (
+        <>
+            {user ? (
+                <button onClick={handleLogout}>Log out</button>
+            ) : (
+                <></>
+            )}
+                
+            <BrowserRouter>
+                <Routes>
+                    <Route
+                        path='/cadastrarproduto'
+                        element={
+                            <ProtectedRoute
+                                user={user}
+                                redirectPath='/'>
+                                <CadastrarProduto/>
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path='/cadastrarcliente'
+                        element={<CadastrarCliente/>}    
+                    />
+                    <Route
+                        path='/clientes'
+                        element={
+                            <ProtectedRoute
+                                user={user}
+                                redirectPath='/'
+                            >
+                                <Clientes />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path='/comprar'
+                        element={
+                            <ProtectedRoute
+                                user={user}
+                                redirectPath='/'
+                            >
+                                <Comprar />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path='/pagina-de-sucesso'
+                        element={<SucessPage/>}
+                    />
+                    <Route 
+                        path='/clientes'
+                        element={<Clientes/>}
+                        />
+                    <Route path="*" element={<Login setUser={setUser}/>} />
+                    <Route path="/" element={<Login setUser={setUser}/>} />
+                </Routes>
+            </BrowserRouter>  
+        </>
+    );
 }
 
 export default App;
