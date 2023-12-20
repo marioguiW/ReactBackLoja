@@ -16,8 +16,9 @@
 }
 
 .button-login{
-    width: 100%;
+    width: 60%;
     height: 50px;
+    font-size: 20px;
     background-color: rgb(196, 227, 255);
     border: none;
     box-shadow: 1.5px 1px 2.5px 0.1px;

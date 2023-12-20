@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import {BrowserRouter, Routes, Route, useSearchParams, Navigate, Outlet} from 'react-router-dom'
 import CadastrarProduto from './Pages/CadastrarProduto'; 
@@ -11,6 +11,8 @@ import Login from 'Pages/Login';
 import { useState } from 'react';
 import SucessPage from 'Pages/SucessPage';
 import Clientes from 'Pages/Clientes';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
     const [user, setUser] = useState(null);
@@ -22,39 +24,57 @@ function App() {
     const handleLogout = () => setUser(null);
 
     
-    const ProtectedRoute = ({
+    const ProtectedRouteAdmin = ({
         user,
-        redirectPath = '/cadastrarproduto',
+        redirectPath = '/',
         children,
       }) => {
-        if (!user.isAdmin) {
-            console.log("passou, é um admin")
+        if (!user) {
+            console.log("passou, não é admin")
             console.log(user)
           return <Navigate to={redirectPath} replace />;
+        }if(user && user.isAdmin == true){
+            console.log(user) 
+            return children ? children : <Outlet />;
+        }if(user && user.isAdmin == false){
+            return <Comprar/>
         }
-        console.log("nao é admin")
-        console.log(user.isADmin)
-        return children ? children : <Outlet />;
       };
+       
     
     return (
         <>
-            {user ? (
-                <button onClick={handleLogout}>Log out</button>
-            ) : (
-                <></>
-            )}
-                
             <BrowserRouter>
+                <ToastContainer
+                        position="bottom-right"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="light"
+                    />
                 <Routes>
                     <Route
                         path='/cadastrarproduto'
                         element={
-                            <ProtectedRoute
-                                user={user}
-                                redirectPath='/'>
-                                <CadastrarProduto/>
-                            </ProtectedRoute>
+                            <>
+                                <Menu/>
+                                {user ? (
+                                    <button onClick={handleLogout}>Log out</button>
+                                    ) : (
+                                        <></>
+                                )}
+                
+                                <ProtectedRouteAdmin
+                                    user={user}
+                                    redirectPath='/'>
+                                    <CadastrarProduto notification={true}/>
+                                </ProtectedRouteAdmin>
+                            </>
                         }
                     />
                     <Route
@@ -64,23 +84,50 @@ function App() {
                     <Route
                         path='/clientes'
                         element={
-                            <ProtectedRoute
-                                user={user}
-                                redirectPath='/'
-                            >
-                                <Clientes />
-                            </ProtectedRoute>
+                            <>
+                                <Menu/>
+                                {user ? (
+                                    <button onClick={handleLogout}>Log out</button>
+                                    ) : (
+                                        <></>
+                                )}
+                                <ProtectedRouteAdmin
+                                    user={user}
+                                    redirectPath='/'
+                                >
+                                    <Clientes />
+                                </ProtectedRouteAdmin>
+                            </>
+                        }
+                    />
+                    <Route
+                        path='/produtos'
+                        element={
+                            <>
+                                <Menu/>
+                                {user ? (
+                                    <button onClick={handleLogout}>Log out</button>
+                                    ) : (
+                                        <></>
+                                )}
+                                <ProtectedRouteAdmin
+                                    user={user}
+                                    redirectPath='/'
+                                >
+                                    <Produtos />
+                                </ProtectedRouteAdmin>
+                            </>
                         }
                     />
                     <Route
                         path='/comprar'
                         element={
-                            <ProtectedRoute
+                            <ProtectedRouteAdmin
                                 user={user}
-                                redirectPath='/'
+                                redirectPath='/wtf'
                             >
-                                <Comprar />
-                            </ProtectedRoute>
+                                <Comprar notification={true}/>
+                            </ProtectedRouteAdmin>
                         }
                     />
                     <Route
@@ -88,11 +135,11 @@ function App() {
                         element={<SucessPage/>}
                     />
                     <Route 
-                        path='/clientes'
-                        element={<Clientes/>}
-                        />
-                    <Route path="*" element={<Login setUser={setUser}/>} />
-                    <Route path="/" element={<Login setUser={setUser}/>} />
+                        path='/login/sucessfull'
+                        element={<Login notification={true} user={user} setUser={setUser}/>}
+                    />
+                    <Route path="*" element={<Login user={user} setUser={setUser}/>} />
+                    <Route path="/" element={<Login user={user} setUser={setUser}/>} />
                 </Routes>
             </BrowserRouter>  
         </>

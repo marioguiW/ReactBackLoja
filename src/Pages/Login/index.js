@@ -1,10 +1,11 @@
 import CampoTexto from "Components/CampoTexto"
 import "./Login.css"
 import { useEffect, useState } from "react"
-import BotaoEnviar from "Components/BotaoEnviar"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, Navigate, useNavigate } from "react-router-dom"
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
 
-export default function Login({setUser}){
+export default function Login({user,setUser,notification}){
 
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
@@ -14,7 +15,14 @@ export default function Login({setUser}){
 
     const navigate = useNavigate();
 
+    useEffect(()=>{
+        if(notification){
+            toast.success("teste")
+        }
+    },[notification])
+
     useEffect(() => {
+
         fetch(`https://localhost:7148/cliente/clientes`, {
           method: "GET",
           headers: {
@@ -30,7 +38,8 @@ export default function Login({setUser}){
                 nome: cliente.nome,
                 email: cliente.email,
                 senha: cliente.senha,
-                endereco: cliente.enderecoDeEntrega
+                endereco: cliente.enderecoDeEntrega,
+                isAdmin: cliente.isAdmin
             }
           ))
 
@@ -55,13 +64,19 @@ export default function Login({setUser}){
                 sessionStorage.setItem("login", JSON.stringify(usuarioValidado))
                 setUser(usuarioValidado)
                 
-
-                navigate("/comprar")
+                if(usuarioValidado.isAdmin){
+                    navigate("/cadastrarproduto")
+                }else{
+                    navigate("/comprar")
+                }
             }
         }
 
+        
+
+
     return(
-        <div className="login">
+        <div className="login">  
             <form onSubmit={evento => validaLogin(evento)} className="formulario-login">
                 <CampoTexto
                     titulo="Email"

@@ -2,6 +2,7 @@ import CampoTexto from 'Components/CampoTexto';
 import './SobreMim.css'
 import BotaoEnviar from 'Components/BotaoEnviar';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CadastrarCliente = () => {
 
@@ -16,6 +17,8 @@ const CadastrarCliente = () => {
     const [confirmSenha, setConfirmSenha] = useState('');
 
     const [emails, setEmails] = useState([])
+
+    const navigate = useNavigate();
 
     useEffect(()=>{
         if(cep && cep.length > 7){
@@ -114,7 +117,7 @@ const CadastrarCliente = () => {
           setNumero('')
           setBairro('')
           setCidade('')
-          alert("Cliente Cadastrado com sucesso!");
+          navigate("/login/sucessfull")
         }else{
             alert("Email já registrado")
         }

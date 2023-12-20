@@ -1,11 +1,16 @@
 import CardProduto from 'Components/CardProduto'
 import './Comprar.css'
 import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
 
-export default function Comprar(){
+export default function Comprar({notification}){
 
     const [produtos, setProdutos] = useState([])
+
+    if(notification){
+        toast.success("Usuário Logado com sucesso!");
+    }
 
     async function GetProdutos(){
 

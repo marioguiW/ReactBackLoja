@@ -2,8 +2,9 @@ import CampoTexto from 'Components/CampoTexto';
 import './CadastrarProduto.css'
 import BotaoEnviar from 'Components/BotaoEnviar';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
-const CadastrarProduto = ()=> {
+const CadastrarProduto = ({notification})=> {
     const [titulo, setTitulo] = useState('');
     const [categoria, setCategoria] = useState('');
     const [preco, setPreco] = useState('');
@@ -16,6 +17,10 @@ const CadastrarProduto = ()=> {
         console.log(titulo,categoria,preco,unidadeMedida,quantidade);
         postProduto()
     }   
+
+    if(notification){
+        toast.success("Admin logado com sucesso!")
+    }
 
     
 
@@ -44,6 +49,7 @@ const CadastrarProduto = ()=> {
 
     return(
         <div className='cadastro_produto'>
+            
             <form onSubmit={aoCadastrarProduto} className='formulario-produto'>
                 <CampoTexto
                     tipo="text"

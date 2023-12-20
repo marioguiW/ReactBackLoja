@@ -7,19 +7,13 @@ const Menu = () => {
         <>
             <div className='cabecalho'>
                 <nav className='navbar'>
-                    <MenuLink rota='/admin/produtos'>
+                    <MenuLink rota='/produtos'>
                         Produtos
                     </MenuLink>
-                    <MenuLink rota='/admin/cadastrarproduto'>
+                    <MenuLink rota='/cadastrarproduto'>
                         Cadastrar Produto
                     </MenuLink>
-                    <MenuLink rota={'/user/comprar'}>
-                        Comprar
-                    </MenuLink> 
-                    <MenuLink rota='/admin/cadastrarcliente'>
-                        Cadastrar Cliente
-                    </MenuLink>
-                    <MenuLink rota='/admin/clientes'>
+                    <MenuLink rota='/clientes'>
                         Clientes
                     </MenuLink>
                     
